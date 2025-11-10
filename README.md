@@ -1,0 +1,1 @@
+# AI-Based-Multi-Crop-Plant-Recogination-and-Classification-System-for-Smart-Agriculture
