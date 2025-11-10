@@ -1,0 +1,64 @@
+# ===============================
+# Training configuration (YAML)
+# ===============================
+
+# Reproducibility
+seed: 42
+
+# Device preference
+device: cuda                  # will auto-fallback to cpu if CUDA not available
+
+# Data
+data:
+  root: data/RGB_224x224      # change to processed root
+  train_dir: "train"
+  val_dir: "val"
+  mean: [0.485, 0.456, 0.406]
+  std:  [0.229, 0.224, 0.225]
+
+# Model
+model_name: efficientnet_b0   # higher accuracy backbone
+num_classes: 139
+img_size: 192                  # lower resolution to speed up epochs with minor accuracy hit
+
+# Optimization
+batch_size: 48                # faster iterations at 192px (reduce if OOM)
+epochs: 30
+optimizer:
+  name: adamw
+  lr: 0.001
+  weight_decay: 0.01
+
+scheduler:
+  name: cosine
+  warmup_epochs: 2             # shorter warmup for speed
+
+label_smoothing: 0.1
+
+# Augmentations
+augment:
+  randaugment: 1
+  mixup: 0.2
+  cutmix: 0.0
+  color_jitter: 0.2
+
+# Training acceleration
+accum_steps: 1                # no accumulation for speed
+ema: false                    # disable to simplify; can enable later if timm version supports it
+tta: 0
+
+# Checkpointing
+checkpoint_dir: weights       # change as desired; relative 'weights' also fine
+ckpt_every_steps: 0           # periodic step checkpoint frequency
+
+# Early stopping (optional)
+early_stopping: 0             # set >0 for patience epochs if implementing early stop logic
+
+# Logging
+log_dir: reports              # where to write metrics/plots (if used)
+
+# Validation cadence (speed)
+val_every: 4                  # validate less frequently to save time
+
+# Backbone freezing (warm start)
+freeze_backbone_epochs: 0     # train full model for best accuracy

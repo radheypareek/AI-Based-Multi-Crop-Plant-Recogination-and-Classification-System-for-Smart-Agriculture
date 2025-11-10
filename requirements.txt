@@ -1,0 +1,13 @@
+torch
+torchvision
+torchaudio
+timm
+albumentations
+opencv-python
+numpy
+pillow
+tqdm
+hydra-core
+omegaconf
+streamlit
+google-generativeai

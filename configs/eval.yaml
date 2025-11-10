@@ -1,0 +1,8 @@
+weights: weights/best.pt
+data_root: data/processed
+img_size: 224
+batch_size: 64
+num_classes: 15
+tta: 5
+device: cuda
+output_dir: reports
